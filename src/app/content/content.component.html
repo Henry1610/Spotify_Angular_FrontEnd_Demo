@@ -1,0 +1,7 @@
+<!-- src/app/content/content.component.html -->
+<h2>Danh sách bài hát</h2>
+<ul>
+  <li *ngFor="let song of songs" (click)="selectSong(song)" class="song-item">
+    {{ song.title }} - {{ song.artist }}
+  </li>
+</ul>

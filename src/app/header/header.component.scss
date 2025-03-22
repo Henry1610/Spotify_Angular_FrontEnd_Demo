@@ -1,0 +1,89 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #000;
+    padding: 8px 16px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+  
+  /* Phần bên trái */
+  .left-section {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .logo {
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-btn:hover {
+    color: #fff;
+  }
+  
+  .search-text {
+    font-size: 14px;
+    color: #b3b3b3;
+  }
+  
+  /* Phần bên phải */
+  .right-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .premium-btn {
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 20px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .premium-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  .settings-btn,
+  .notification-btn {
+    background: none;
+    border: none;
+    color: #b3b3b3;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+  
+  .settings-btn:hover,
+  .notification-btn:hover {
+    color: #fff;
+  }
+  
+  .user-avatar img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+  }

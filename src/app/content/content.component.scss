@@ -1,0 +1,15 @@
+/* src/app/content/content.component.css */
+ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .song-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+  }
+  
+  .song-item:hover {
+    background-color: #f0f0f0;
+  }
