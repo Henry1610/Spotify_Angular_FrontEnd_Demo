@@ -20,5 +20,6 @@ export class AppComponent {
   onSongSelected(song: Song) {
     console.log('Song received in AppComponent:', song); // Thêm log để kiểm tra
     this.selectedSong = song;
+    console.log('Updated selectedSong in AppComponent:', this.selectedSong); // Thêm log để kiểm tra
   }
 }

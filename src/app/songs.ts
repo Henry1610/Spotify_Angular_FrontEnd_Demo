@@ -22,7 +22,6 @@ export const songs: Song[] = [
     audioSrc: 'assets/audio/song2.mp3',
     coverSrc: 'assets/images/cover2.jpg',
   },
-  // Thêm các bài hát khác...
   {
     id: 10,
     title: 'Song 10',

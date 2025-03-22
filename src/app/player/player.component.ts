@@ -29,6 +29,7 @@ export class PlayerComponent implements OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedSong'] && this.selectedSong) {
+      console.log('Selected song changed in PlayerComponent:', this.selectedSong); // Log để kiểm tra
       if (this.song) {
         this.song.stop();
         this.isPlaying = false;
@@ -36,9 +37,8 @@ export class PlayerComponent implements OnChanges {
         this.currentTime = '0:00';
       }
 
-      // Lưu selectedSong vào biến tạm để TypeScript biết chắc chắn nó không null
       const selectedSong = this.selectedSong;
-      this.imageUrl = selectedSong!.coverSrc; // Không còn lỗi vì selectedSong đã được kiểm tra
+      this.imageUrl = selectedSong.coverSrc;
       this.initializeHowl();
     }
   }
@@ -51,16 +51,27 @@ export class PlayerComponent implements OnChanges {
         html5: true,
       });
   
-      this.song!.on('load', () => {
+      const song = this.song;
+      song.on('load', () => {
+        console.log('Song loaded in Howler:', selectedSong.audioSrc);
         setInterval(() => {
           this.updateProgress();
         }, 1000);
   
-        this.song!.on('end', () => {
+        song.on('end', () => {
+          console.log('Song ended');
           this.isPlaying = false;
           this.currentProgress = 0;
           this.currentTime = '0:00';
         });
+      });
+  
+      song.on('loaderror', (id, error) => {
+        console.error('Error loading song:', selectedSong.audioSrc, error);
+      });
+  
+      song.on('playerror', (id, error) => {
+        console.error('Error playing song:', selectedSong.audioSrc, error);
       });
     }
   }
@@ -83,8 +94,10 @@ export class PlayerComponent implements OnChanges {
 
     if (this.isPlaying) {
       this.song.pause();
+      console.log('Song paused'); // Log để kiểm tra
     } else {
       this.song.play();
+      console.log('Song played'); // Log để kiểm tra
     }
     this.isPlaying = !this.isPlaying;
   }

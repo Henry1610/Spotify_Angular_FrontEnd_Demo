@@ -1,0 +1,15 @@
+/* app.component.css */
+.container {
+    display: flex;
+    width: 100%;
+  }
+  app-sidebar {
+    flex: 3;
+    background-color: #f0f0f0;
+    
+  }
+  app-content {
+    flex: 7;
+    background-color: #ffffff;
+   
+  }

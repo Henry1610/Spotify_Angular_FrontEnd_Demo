@@ -1,4 +1,9 @@
-<app-header></app-header>
-<app-sidebar></app-sidebar>
-<app-content></app-content>
-<app-player></app-player>
+<div >
+    <app-header></app-header>
+    <div class="container">
+        <app-sidebar class="sidebar"></app-sidebar>
+        <app-content (songSelected)="onSongSelected($event)" class="content"></app-content>
+    </div>
+    
+    <app-player [selectedSong]="selectedSong"></app-player>
+</div>
