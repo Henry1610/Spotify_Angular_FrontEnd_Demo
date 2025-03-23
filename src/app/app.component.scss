@@ -1,15 +1,64 @@
-/* app.component.css */
+/* src/app/app.component.css */
+.main-wrapper {
+  display: flex;
+  padding: 8px;
+  flex-direction: column;
+  height: 100vh; /* Chiều cao bằng toàn bộ màn hình */
+  background-color: #000; /* Nền đen giống Spotify */
+  color: white;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Header cố định ở trên cùng */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  
+}
+
 .container {
-    display: flex;
-    width: 100%;
-  }
-  app-sidebar {
-    flex: 3;
-    background-color: #f0f0f0;
-    
-  }
-  app-content {
-    flex: 7;
-    background-color: #ffffff;
-   
-  }
+  gap: 10px;
+  display: flex ;
+  margin-top: 60px; 
+  margin-bottom: 60px; /* Khoảng cách để tránh bị player che khuất */
+  height: calc(100vh - 140px); /* Chiều cao = màn hình trừ header và player */
+}
+
+.sidebar {
+  border-radius: 12px;
+  width: 25%; 
+  background-color: #000;
+  overflow-y: auto; 
+}
+
+.content {
+  border-radius: 12px;
+
+  width: 75%; 
+  background-color: #121212;
+  overflow-y: auto;
+}
+
+.player {
+  position: fixed;
+  
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background-color: #181818; 
+  z-index: 1000;
+}
+::-webkit-scrollbar {
+  display: none;
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}

@@ -1,9 +1,21 @@
-<div >
-    <app-header></app-header>
-    <div class="container">
-        <app-sidebar class="sidebar"></app-sidebar>
-        <app-content (songSelected)="onSongSelected($event)" class="content"></app-content>
+<!-- src/app/app.component.html -->
+<div class="main-wrapper">
+    <!-- Header cố định ở trên cùng -->
+    <div class="header">
+        <app-header></app-header>
     </div>
-    
-    <app-player [selectedSong]="selectedSong"></app-player>
-</div>
+
+    <!-- Container chứa sidebar và content -->
+    <div class="container">
+        <div class="sidebar">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="content">
+            <app-content (songSelected)="onSongSelected($event)"></app-content>
+        </div>
+    </div>
+
+    <!-- Player cố định ở dưới cùng -->
+    <div class="player">
+        <app-player [selectedSong]="selectedSong" [songs]="songsList"></app-player>
+    </div>

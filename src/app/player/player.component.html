@@ -11,6 +11,7 @@
   
     <div class="player">
       <div class="controls">
+        <!-- SHUFFLE BTN -->
         <button class="control-btn shuffle-btn">
           <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path
@@ -23,6 +24,7 @@
             ></path>
           </svg>
         </button>
+        <!-- PREV-BTN -->
         <button class="control-btn prev-btn" aria-label="Previous">
           <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" fill="#FFFFFF">
             <path
@@ -30,6 +32,7 @@
             ></path>
           </svg>
         </button>
+        <!-- PLAY/PAUSE -->
         <button class="control-btn play-btn" (click)="togglePlay()">
           <svg *ngIf="!isPlaying" width="16" height="16" viewBox="0 0 16 16">
             <path
@@ -42,7 +45,8 @@
             ></path>
           </svg>
         </button>
-        <button class="control-btn next-btn">
+        <!-- NEXT-BTN -->
+        <button class="control-btn next-btn" (click)="nextSong()">
           <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path
               fill="#FFFFFF"
@@ -50,6 +54,7 @@
             ></path>
           </svg>
         </button>
+        <!-- REPEAT -->
         <button class="control-btn repeat-btn">
           <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
             <path

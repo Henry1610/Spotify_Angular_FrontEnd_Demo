@@ -8,5 +8,5 @@ import { CommonModule } from '@angular/common';
 })
 export class HeaderComponent {
   // Dữ liệu cho ảnh đại diện người dùng
-  userAvatar = 'assets/images/user-avatar.jpg'; // Thay bằng đường dẫn ảnh của bạn
+  userAvatar = 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=264248917912963&height=50&width=50&ext=1745333721&hash=AbY0F-XxsJ-cxkLlRTmHnueb'; // Thay bằng đường dẫn ảnh của bạn
 }

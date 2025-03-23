@@ -14,7 +14,7 @@ import { Song } from '../songs';
 })
 export class PlayerComponent implements OnChanges {
   @Input() selectedSong: Song | null = null;
-
+  @Input() songs: Song[] = [];
   isPlaying = false;
   currentProgress = 0;
   currentTime = '0:00';
@@ -22,24 +22,37 @@ export class PlayerComponent implements OnChanges {
   volume = 50;
   imageUrl = 'assets/images/cover1.jpg'; // Giá trị mặc định
   isDragging = false;
-
+  currentSongIndex = 0;
   song: Howl | null = null;
 
   constructor() {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selectedSong'] && this.selectedSong) {
-      console.log('Selected song changed in PlayerComponent:', this.selectedSong); // Log để kiểm tra
+      console.log('Selected song changed:', this.selectedSong); // Debug
+
+      // Cập nhật currentSongIndex
+      this.currentSongIndex = this.songs.findIndex(song => song.id === this.selectedSong?.id);
+
+      // Dừng và hủy bài cũ nếu đang phát
       if (this.song) {
         this.song.stop();
-        this.isPlaying = false;
+        this.song.unload();
         this.currentProgress = 0;
         this.currentTime = '0:00';
       }
 
-      const selectedSong = this.selectedSong;
-      this.imageUrl = selectedSong.coverSrc;
+      // Cập nhật ảnh bìa
+      this.imageUrl = this.selectedSong.coverSrc || 'assets/images/cover1.jpg';
+
+      // Khởi tạo bài mới
       this.initializeHowl();
+
+      // Tự động phát bài mới nếu trước đó đang phát
+      if (this.isPlaying && this.song) {
+        this.song.play();
+        this.updateProgressLoop();
+      }
     }
   }
 
@@ -88,7 +101,35 @@ export class PlayerComponent implements OnChanges {
       this.currentTime = '0:00';
     }
   }
+  updateProgressLoop(): void {
+    if (this.song && this.song.playing()) {
+      this.updateProgress();
+      requestAnimationFrame(() => this.updateProgressLoop());
+    }
+  }
+  nextSong(): void {
+    console.log('Next song clicked'); // Kiểm tra sự kiện có chạy không
+    console.log('Selected song:', this.selectedSong);
 
+    if (this.songs.length === 0) return;
+
+    this.currentSongIndex = (this.currentSongIndex + 1) % this.songs.length;
+    this.selectedSong = this.songs[this.currentSongIndex];
+    if (this.selectedSong) { // Kiểm tra null trước khi truy cập
+      this.imageUrl = this.selectedSong.coverSrc;
+    }
+
+    if (this.song) {
+      this.song.stop();
+      this.currentProgress = 0;
+      this.currentTime = '0:00';
+    }
+    this.initializeHowl();
+    if (this.isPlaying && this.song) {
+      this.song.play();
+      this.updateProgressLoop();
+    }
+  }
   togglePlay(): void {
     if (!this.song) return;
 
@@ -135,11 +176,19 @@ export class PlayerComponent implements OnChanges {
     this.isDragging = false;
   }
 
-  onVolumeChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.volume = parseInt(target.value, 10);
+  onVolumeChange(volume: number) {
     if (this.song) {
-      this.song.volume(this.volume / 100);
+      this.song.volume(volume / 100);
+      const slider = document.querySelector('.volume-slider') as HTMLElement;
+      slider.style.background = `linear-gradient(to right, #fff ${volume}%, #444 ${volume}%)`;
+      
+      // Hover sẽ được xử lý trong CSS, nhưng cần thêm logic nếu muốn thay đổi màu khi hover
+      slider.onmouseover = () => {
+        slider.style.background = `linear-gradient(to right, #1DB954 ${volume}%, #444 ${volume}%)`;
+      };
+      slider.onmouseout = () => {
+        slider.style.background = `linear-gradient(to right, #fff ${volume}%, #444 ${volume}%)`;
+      };
     }
   }
 
@@ -159,4 +208,5 @@ export class PlayerComponent implements OnChanges {
     const seconds = parseInt(parts[1], 10);
     return minutes * 60 + seconds;
   }
+  
 }

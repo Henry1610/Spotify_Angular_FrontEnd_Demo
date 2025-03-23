@@ -1,190 +1,177 @@
+/* Tối ưu CSS - Loại bỏ các quy tắc dư thừa hoặc bị ghi đè */
 .music-player {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #181818;
-    color: #fff;
-    padding: 10px 20px;
-    font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    width: 100%;
-    box-sizing: border-box;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1000;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-    min-height: 70px;
-  }
-  
-  /* Phần thông tin bài hát */
-  .song-info {
-    display: flex;
-    align-items: center;
-    min-width: 200px;
-  }
-  
-  .album-art {
-    width: 40px;
-    height: 40px;
-    border-radius: 4px;
-    margin-right: 10px;
-    object-fit: cover;
-  }
-  
-  .song-details {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .song-title {
-    font-size: 14px;
-    font-weight: 500;
-    color: #fff;
-  }
-  
-  .artist-name {
-    font-size: 12px;
-    color: #b3b3b3;
-  }
-  
-  .like-btn {
-    background: none;
-    border: none;
-    color: #b3b3b3;
-    font-size: 16px;
-    cursor: pointer;
-    margin-left: 10px;
-  }
-  
-  .like-btn:hover {
-    color: #1db954;
-  }
-  
-  /* Phần điều khiển phát nhạc */
-  .player {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-    max-width: 500px;
-  }
-  
-  .controls {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 5px;
-  }
-  
-  .control-btn {
-    background: none;
-    border: none;
-    color: #b3b3b3;
-    font-size: 16px;
-    cursor: pointer;
-    transition: color 0.2s ease;
-  }
-  
-  .control-btn:hover {
-    color: #fff;
-  }
-  
-  .play-btn {
-    background-color: #fff;
-    color: #000;
-    border-radius: 50%;
-    width: 32px;
-    height: 32px;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-  }
-  
-  .play-btn:hover {
-    transform: scale(1.05);
-  }
-  
-  /* ---------------------------------Thanh tiến trình phát nhạc -------------------------*/
-  .progress-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-  }
-  
-  .current-time,
-  .total-time {
-    font-size: 12px;
-    color: #b3b3b3;
-  }
-  
-  .progress {
-    flex-grow: 1;
-    height: 4px;
-    background-color: #404040;
-    border-radius: 2px;
-    position: relative;
-    cursor: pointer;
-  }
-  
-  .progress-fill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  min-height: 70px;
+  padding: 10px;
+}
+
+.song-info {
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+}
+
+.album-art {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  margin-right: 10px;
+  object-fit: cover;
+}
+
+.song-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.artist-name {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.like-btn:hover {
+  color: #1db954;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 5px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.control-btn:hover {
+  color: #fff;
+}
+
+.play-btn {
+  background-color: #fff;
+  color: #000;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.play-btn:hover {
+  transform: scale(1.05);
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.current-time, .total-time {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.progress {
+  flex-grow: 1;
+  height: 4px;
+  background-color: #404040;
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.progress-fill {
   height: 100%;
   background-color: #fff;
   border-radius: 2px;
   transition: width 0.2s ease;
   position: relative;
-  }
-  
-  .progress-fill::after {
-  content: "🔘"; 
+}
+
+.progress-fill:hover {
+  background-color: #00ff00;
+}
+
+.progress-fill::after {
+  content: "🔘";
   font-size: 14px;
   position: absolute;
   top: -8px;
   left: 100%;
   transform: translateX(-50%);
   pointer-events: none;
-  opacity: 0; 
+  opacity: 0;
   transition: opacity 0.2s ease;
-  color: #fff; /* Màu mặc định */
-  
-  }
-  .progress-fill:hover {
-    background-color: #00ff00; /* Màu xanh khi hover */
-  }
-  .progress-fill:hover::after {
-    color: #00ff00; /* Đổi màu nút tròn khi hover */
-    opacity: 1; /* Làm hiện nút tròn khi hover */
-  }
-  
-  
-  /*---------------------------------------- Phần điều khiển bổ sung (bên phải)-------------------------------- */
-  .extra-controls {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 200px;
-    justify-content: flex-end;
-  }
-  
-  .volume-btn {
-    background: none;
-    border: none;
-    color: #b3b3b3;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .volume-btn:hover {
-    color: #fff;
-  }
-  
-  /* --------------------------------Thanh trượt âm lượng -------------------------------------*/
-  .volume-slider {
+  color: #fff;
+}
+
+.progress-fill:hover::after {
+  color: #00ff00;
+  opacity: 1;
+}
+
+.extra-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+  justify-content: flex-end;
+}
+
+.volume-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.volume-btn:hover {
+  color: #fff;
+}
+
+.volume-slider {
   -webkit-appearance: none;
   width: 100px;
   height: 5px;
@@ -192,34 +179,23 @@
   border-radius: 5px;
   cursor: pointer;
   outline: none;
-  }
-  .volume-slider:hover {
-    
-    background: linear-gradient(to right, #1DB954 50%, #444 50%);
-    
-  }
-  .volume-slider::-webkit-slider-runnable-track {
-  height: 5px;
-  border-radius: 5px;
-  background: transparent;
-  }
-  
-  .volume-slider::-webkit-slider-thumb {
-    background: linear-gradient(to right, #fff 50%, #444 50%);
-  
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    background: white;
-    border-radius: 50%;
-    cursor: pointer;
-    margin-top: -3px;
-    position: relative;
-    z-index: 2;
-    opacity: 0; /* Ẩn mặc định */
-    transition: opacity 0.2s ease; /* Hiệu ứng mượt */
-  }
-  
-  .volume-slider:hover::-webkit-slider-thumb {
-    opacity: 1; /* Hiện khi hover */
-  }
+}
+
+.volume-slider:hover {
+  background: linear-gradient(to right, #1DB954 50%, #444 50%);
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.volume-slider:hover::-webkit-slider-thumb {
+  opacity: 1;
+}

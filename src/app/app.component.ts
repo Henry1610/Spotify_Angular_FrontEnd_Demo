@@ -4,7 +4,7 @@ import { ContentComponent } from './content/content.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { PlayerComponent } from './player/player.component';
 import { CommonModule } from '@angular/common'; // Import CommonModule
-import { Song } from './songs';
+import { Song, songs  } from './songs';
 @Component({
   selector: 'app-root',
   imports: [CommonModule,HeaderComponent,
@@ -16,10 +16,10 @@ import { Song } from './songs';
 })
 export class AppComponent {
   selectedSong: Song | null = null;
+  songsList = songs; // Danh sách bài hát
 
   onSongSelected(song: Song) {
     console.log('Song received in AppComponent:', song); // Thêm log để kiểm tra
     this.selectedSong = song;
-    console.log('Updated selectedSong in AppComponent:', this.selectedSong); // Thêm log để kiểm tra
   }
 }

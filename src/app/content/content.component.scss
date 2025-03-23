@@ -1,15 +1,128 @@
 /* src/app/content/content.component.css */
-ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  .song-item {
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-    cursor: pointer;
-  }
-  
-  .song-item:hover {
-    background-color: #f0f0f0;
-  }
+.playlist-container {
+  background: linear-gradient(to bottom, #1db954 0%, #121212 30%);
+  padding: 20px;
+  min-height: 100vh;
+  color: white;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.playlist-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.playlist-image img {
+  width: 150px;
+  height: 150px;
+  margin-right: 20px;
+  box-shadow: 0 4px 60px rgba(0, 0, 0, 0.5);
+}
+
+.playlist-info {
+  flex: 1;
+}
+
+.label {
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #b3b3b3;
+}
+
+.playlist-title {
+  font-size: 48px;
+  font-weight: 900;
+  margin: 10px 0;
+}
+
+.playlist-details {
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.creator {
+  color: white;
+  font-weight: bold;
+}
+
+.playlist-actions {
+  margin-bottom: 20px;
+}
+
+.play-button {
+  background-color: #1db954;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.play-button:hover {
+  background-color: #1ed760;
+}
+
+.play-icon {
+  font-size: 24px;
+  color: white;
+}
+
+.song-list table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  padding: 8px 16px;
+  text-align: left;
+  color: #b3b3b3;
+  font-size: 14px;
+  font-weight: normal;
+  border-bottom: 1px solid #282828;
+}
+
+.song-item {
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.song-item:hover {
+  background-color: #282828;
+}
+
+.song-info {
+  display: flex;
+  align-items: center;
+}
+
+.song-image {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.song-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  color: white;
+  font-size: 16px;
+}
+
+.song-artist {
+  color: #b3b3b3;
+  font-size: 14px;
+}
+
+td {
+  padding: 8px 16px;
+  color: #b3b3b3;
+  font-size: 14px;
+}
