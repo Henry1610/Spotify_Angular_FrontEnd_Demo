@@ -1,5 +1,5 @@
 // src/app/player/player.component.ts
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, OnInit } from '@angular/core';
 import { Howl } from 'howler';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,7 +12,7 @@ import { Song } from '../songs';
   templateUrl: './player.component.html',
   styleUrls: ['./player.component.scss'],
 })
-export class PlayerComponent implements OnChanges {
+export class PlayerComponent implements OnChanges, OnInit {
   @Input() selectedSong: Song | null = null;
   @Input() songs: Song[] = [];
   isPlaying = false;
@@ -24,6 +24,9 @@ export class PlayerComponent implements OnChanges {
   isDragging = false;
   currentSongIndex = 0;
   song: Howl | null = null;
+  isShuffle = false; // Thêm biến theo dõi trạng thái shuffle
+  repeatMode: 'none' | 'all' | 'one' = 'none'; // Thêm biến theo dõi chế độ lặp
+  previousVolume: number = 100; // Lưu âm lượng trước khi tắt
 
   constructor() {}
 
@@ -48,11 +51,20 @@ export class PlayerComponent implements OnChanges {
       // Khởi tạo bài mới
       this.initializeHowl();
 
-      // Tự động phát bài mới nếu trước đó đang phát
-      if (this.isPlaying && this.song) {
+      // Tự động phát bài mới
+      if (this.song) {
         this.song.play();
+        this.isPlaying = true;
         this.updateProgressLoop();
       }
+    }
+  }
+
+  ngOnInit(): void {
+    // Khởi tạo giá trị ban đầu cho thanh điều chỉnh âm lượng
+    const slider = document.querySelector('.volume-slider') as HTMLElement;
+    if (slider) {
+      slider.style.setProperty('--volume', `${this.volume}%`);
     }
   }
 
@@ -76,6 +88,20 @@ export class PlayerComponent implements OnChanges {
           this.isPlaying = false;
           this.currentProgress = 0;
           this.currentTime = '0:00';
+          
+          // Xử lý khi bài hát kết thúc
+          if (this.repeatMode === 'one') {
+            // Nếu đang ở chế độ lặp một bài
+            if (this.song) {
+              this.song.seek(0);
+              this.song.play();
+              this.isPlaying = true;
+              this.updateProgressLoop();
+            }
+          } else {
+            // Nếu không phải lặp một bài, phát bài tiếp theo
+            this.nextSong();
+          }
         });
       });
   
@@ -90,32 +116,79 @@ export class PlayerComponent implements OnChanges {
   }
 
   updateProgress(): void {
-    if (this.song && this.song.playing()) {
+    if (this.song) {
       const seek = this.song.seek() as number;
       const duration = this.song.duration() as number;
       this.currentProgress = (seek / duration) * 100;
       this.currentTime = this.formatTime(seek);
       this.totalTime = this.formatTime(duration);
-    } else {
-      this.currentProgress = 0;
-      this.currentTime = '0:00';
     }
   }
+
   updateProgressLoop(): void {
     if (this.song && this.song.playing()) {
       this.updateProgress();
       requestAnimationFrame(() => this.updateProgressLoop());
     }
   }
+
+  // Thêm phương thức để lấy bài hát ngẫu nhiên
+  getRandomSongIndex(): number {
+    return Math.floor(Math.random() * this.songs.length);
+  }
+
+  // Thêm phương thức xử lý sự kiện shuffle
+  toggleShuffle(): void {
+    this.isShuffle = !this.isShuffle;
+    console.log('Shuffle mode:', this.isShuffle);
+  }
+
+  // Thêm phương thức xử lý sự kiện repeat
+  toggleRepeat(): void {
+    switch (this.repeatMode) {
+      case 'none':
+        this.repeatMode = 'all';
+        break;
+      case 'all':
+        this.repeatMode = 'one';
+        break;
+      case 'one':
+        this.repeatMode = 'none';
+        break;
+    }
+    console.log('Repeat mode:', this.repeatMode);
+  }
+
+  // Chỉnh sửa phương thức nextSong để xử lý cả shuffle và repeat
   nextSong(): void {
-    console.log('Next song clicked'); // Kiểm tra sự kiện có chạy không
+    console.log('Next song clicked');
     console.log('Selected song:', this.selectedSong);
 
     if (this.songs.length === 0) return;
 
-    this.currentSongIndex = (this.currentSongIndex + 1) % this.songs.length;
+    // Nếu đang ở chế độ lặp một bài
+    if (this.repeatMode === 'one') {
+      if (this.song) {
+        this.song.seek(0);
+        this.song.play();
+      }
+      return;
+    }
+
+    // Nếu đang ở chế độ shuffle
+    if (this.isShuffle) {
+      let newIndex;
+      do {
+        newIndex = this.getRandomSongIndex();
+      } while (newIndex === this.currentSongIndex && this.songs.length > 1);
+      this.currentSongIndex = newIndex;
+    } else {
+      // Nếu không phải shuffle, phát bài tiếp theo
+      this.currentSongIndex = (this.currentSongIndex + 1) % this.songs.length;
+    }
+
     this.selectedSong = this.songs[this.currentSongIndex];
-    if (this.selectedSong) { // Kiểm tra null trước khi truy cập
+    if (this.selectedSong) {
       this.imageUrl = this.selectedSong.coverSrc;
     }
 
@@ -125,20 +198,25 @@ export class PlayerComponent implements OnChanges {
       this.currentTime = '0:00';
     }
     this.initializeHowl();
-    if (this.isPlaying && this.song) {
+    
+    // Tự động phát bài mới
+    if (this.song) {
       this.song.play();
+      this.isPlaying = true;
       this.updateProgressLoop();
     }
   }
+
   togglePlay(): void {
     if (!this.song) return;
 
     if (this.isPlaying) {
       this.song.pause();
-      console.log('Song paused'); // Log để kiểm tra
+      console.log('Song paused');
     } else {
       this.song.play();
-      console.log('Song played'); // Log để kiểm tra
+      console.log('Song played');
+      this.updateProgressLoop();
     }
     this.isPlaying = !this.isPlaying;
   }
@@ -152,11 +230,14 @@ export class PlayerComponent implements OnChanges {
   updateProgressFromMouseEvent(event: MouseEvent): void {
     if (!this.song) return;
 
-    const progressBar = event.target as HTMLElement;
-    const progressWidth = progressBar.offsetWidth;
-    const clickX = event.offsetX;
-    this.currentProgress = (clickX / progressWidth) * 100;
-    const seek = (this.currentProgress / 100) * (this.song.duration() as number);
+    const progressBar = event.currentTarget as HTMLElement;
+    const rect = progressBar.getBoundingClientRect();
+    const progressWidth = rect.width;
+    const clickX = event.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (clickX / progressWidth) * 100));
+    this.currentProgress = percentage;
+    
+    const seek = (percentage / 100) * (this.song.duration() as number);
     this.song.seek(seek);
     this.currentTime = this.formatTime(seek);
   }
@@ -177,23 +258,29 @@ export class PlayerComponent implements OnChanges {
   }
 
   onVolumeChange(volume: number) {
+    // Cập nhật âm lượng cho bài hát nếu có
     if (this.song) {
       this.song.volume(volume / 100);
-      const slider = document.querySelector('.volume-slider') as HTMLElement;
-      slider.style.background = `linear-gradient(to right, #fff ${volume}%, #444 ${volume}%)`;
-      
-      // Hover sẽ được xử lý trong CSS, nhưng cần thêm logic nếu muốn thay đổi màu khi hover
-      slider.onmouseover = () => {
-        slider.style.background = `linear-gradient(to right, #1DB954 ${volume}%, #444 ${volume}%)`;
-      };
-      slider.onmouseout = () => {
-        slider.style.background = `linear-gradient(to right, #fff ${volume}%, #444 ${volume}%)`;
-      };
+    }
+    
+    // Luôn cập nhật biến volume và CSS variable, bất kể có bài hát hay không
+    this.volume = volume;
+    localStorage.setItem('volume', volume.toString());
+    const slider = document.querySelector('.volume-slider') as HTMLElement;
+    if (slider) {
+      slider.style.setProperty('--volume', `${volume}%`);
     }
   }
 
   onVolumeClick(event: MouseEvent): void {
-    // Có thể thêm logic nếu cần, ví dụ: mute/unmute
+    const volumeBar = event.currentTarget as HTMLElement;
+    const rect = volumeBar.getBoundingClientRect();
+    const volumeWidth = rect.width;
+    const clickX = event.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(100, (clickX / volumeWidth) * 100));
+    
+    this.volume = Math.round(percentage);
+    this.onVolumeChange(this.volume);
   }
 
   formatTime(seconds: number): string {
@@ -208,5 +295,16 @@ export class PlayerComponent implements OnChanges {
     const seconds = parseInt(parts[1], 10);
     return minutes * 60 + seconds;
   }
-  
+
+  toggleMute() {
+    if (this.volume === 0) {
+      // Nếu đang tắt, khôi phục âm lượng cũ
+      this.volume = this.previousVolume;
+    } else {
+      // Nếu đang bật, lưu âm lượng hiện tại và tắt
+      this.previousVolume = this.volume;
+      this.volume = 0;
+    }
+    this.onVolumeChange(this.volume);
+  }
 }
