@@ -1,0 +1,429 @@
+/* Tối ưu CSS - Loại bỏ các quy tắc dư thừa hoặc bị ghi đè */
+.music-player {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #000;
+  color: #fff;
+  font-family: 'Circular', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+  min-height: 70px;
+  padding: 10px;
+
+  &.fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: hidden;
+  }
+}
+
+.song-info {
+  display: flex;
+  align-items: center;
+  min-width: 200px;
+
+  &.fullscreen-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 2rem;
+  }
+}
+
+.album-art {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+  margin-right: 10px;
+  object-fit: cover;
+
+  &.fullscreen-cover {
+    width: 60vh;
+    height: 60vh;
+    max-width: 600px;
+    max-height: 600px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    margin-bottom: 2rem;
+  }
+}
+
+.song-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.song-title {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.artist-name {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.like-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.like-btn:hover {
+  color: #1db954;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  max-width: 500px;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 5px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: #b3b3b3;
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: #fff;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+  }
+}
+
+.shuffle-btn {
+  position: relative;
+}
+
+.shuffle-btn .shuffle-icon {
+  fill: currentColor;
+}
+
+.shuffle-btn.active {
+  color: #1db954;
+}
+
+.shuffle-btn.active:hover {
+  color: #1ed760;
+}
+
+.repeat-btn {
+  position: relative;
+}
+
+.repeat-btn .repeat-icon {
+  fill: currentColor;
+}
+
+.repeat-btn.active {
+  color: #1db954;
+}
+
+.repeat-btn.active:hover {
+  color: #1ed760;
+}
+
+.play-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  
+  svg {
+    fill: #000;
+    width: 16px;
+    height: 16px;
+    transition: all 0.2s ease;
+  }
+  
+  &:hover {
+    transform: scale(1.1);
+    background-color: #fff;
+    
+    svg {
+      fill: #000;
+    }
+  }
+  
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.progress-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.current-time, .total-time {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+.progress {
+  flex-grow: 1;
+  height: 4px;
+  background-color: #404040;
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: width 0.2s ease;
+  position: relative;
+}
+
+.progress-fill:hover {
+  background-color: #00ff00;
+}
+
+.progress-fill::after {
+  content: "🔘";
+  font-size: 14px;
+  position: absolute;
+  top: -8px;
+  left: 100%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  color: #fff;
+}
+
+.progress-fill:hover::after {
+  color: #00ff00;
+  opacity: 1;
+}
+
+.extra-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-right: 16px;
+
+  .left-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .right-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .volume-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+
+      .volume-wrapper {
+        .volume-slider {
+          &::-webkit-slider-runnable-track {
+            background: linear-gradient(to right, #1db954 var(--volume), #404040 var(--volume));
+          }
+
+          &::-webkit-slider-thumb {
+            opacity: 1;
+            transform: scale(1.2);
+          }
+        }
+
+        .volume-btn {
+          color: white;
+        }
+      }
+    }
+
+    .volume-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .volume-btn {
+        background: none;
+        border: none;
+        color: #b3b3b3;
+        font-size: 16px;
+        cursor: pointer;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s ease;
+
+        .volume-icon {
+          fill: currentColor;
+        }
+      }
+
+      .volume-slider-container {
+        position: relative;
+        width: 100px;
+        height: 4px;
+        cursor: pointer;
+        border-radius: 2px;
+        background-color: #404040;
+        --volume: 50%;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          height: 100%;
+          width: var(--volume);
+          background-color: #fff;
+          border-radius: 2px;
+        }
+
+        &:hover {
+          &::after {
+            content: '';
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #fff;
+            border-radius: 50%;
+            top: -4px;
+            left: calc(var(--volume) - 6px);
+          }
+          
+          &::before {
+            background-color: #1db954;
+          }
+        }
+      }
+
+      .volume-slider {
+        width: 100%;
+        height: 4px;
+        -webkit-appearance: none;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        z-index: 2;
+
+        &::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 4px;
+          background: transparent;
+          border-radius: 2px;
+        }
+
+        &::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          width: 12px;
+          height: 12px;
+          background: transparent;
+          border-radius: 50%;
+          cursor: pointer;
+          margin-top: -4px;
+        }
+      }
+    }
+  }
+}
+
+.expand-btn {
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  svg {
+    fill: currentColor;
+  }
+}
+
+/* Thêm animation cho transition */
+.music-player,
+.song-info,
+.album-art {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Sửa lại styles cho controls trong chế độ mở rộng */
+.fullscreen {
+  .player {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .controls {
+    margin-bottom: 1rem;
+  }
+  
+  .progress-bar {
+    margin-bottom: 1rem;
+  }
+  
+  .extra-controls {
+    margin-top: 1rem;
+  }
+}

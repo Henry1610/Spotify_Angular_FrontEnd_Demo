@@ -1,0 +1,127 @@
+.library-container {
+  background-color: #121212;
+  padding: 20px;
+  min-height: 100vh;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  overflow-y: auto; /* Cho phép cuộn dọc khi nội dung vượt quá chiều cao */
+  -webkit-overflow-scrolling: touch; /* Cuộn mượt trên thiết bị di động */
+  scrollbar-width: none; /* Ẩn thanh cuộn trên Firefox */
+}
+
+/* Ẩn thanh cuộn trên Chrome, Safari, Edge */
+.library-container::-webkit-scrollbar {
+}
+
+/* Các phần còn lại giữ nguyên */
+.library-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-left svg {
+  width: 24px;
+  height: 24px;
+}
+
+h2 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.add-icon {
+  font-size: 24px;
+  color: #b3b3b3;
+  cursor: pointer;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-button {
+  background-color: #282828;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 16px;
+  color: white;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.more-icon {
+  margin-left: 10px;
+  font-size: 16px;
+  color: #b3b3b3;
+}
+
+.playlist-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.playlist-item:hover, .playlist-item.active {
+  background-color: #282828;
+}
+
+.playlist-image {
+  position: relative;
+  margin-right: 10px;
+}
+
+.playlist-image img {
+  width: 48px;
+  height: 48px;
+  border-radius: 4px;
+}
+
+.play-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  color: #1db954;
+  display: none;
+}
+
+.playlist-item.active .play-icon {
+  display: block;
+}
+
+.playlist-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlist-title {
+  font-size: 16px;
+  color: white;
+}
+
+.playlist-description {
+  font-size: 14px;
+  color: #b3b3b3;
+}
