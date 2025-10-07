@@ -1,21 +1,31 @@
 <!-- src/app/app.component.html -->
-<div class="main-wrapper">
+
+<!-- Router outlet cho callback component -->
+<router-outlet></router-outlet>
+
+<!-- Main app layout chỉ hiển thị khi không ở route callback -->
+<div class="  vh-100 bg-black text-white" style="font-family: 'Helvetica Neue', Arial, sans-serif;"
+    *ngIf="!isCallbackRoute()">
     <!-- Header cố định ở trên cùng -->
-    <div class="header">
+    <div class="position-sticky " >
         <app-header></app-header>
     </div>
 
     <!-- Container chứa sidebar và content -->
-    <div class="container">
-        <div class="sidebar">
-            <app-sidebar></app-sidebar>
+    <div class="container-fluid d-flex gap-2" style="height:calc(100vh - 140px); ">
+        <div class="col-3 bg-black overflow-auto rounded-3">
+            <app-sidebar (playlistSelected)="onPlaylistSelected($event)"></app-sidebar>
         </div>
-        <div class="content">
-            <app-content (songSelected)="onSongSelected($event)"></app-content>
+        <div class="col-9 bg-dark overflow-auto rounded-3">
+            <app-content [selectedPlaylistId]="selectedPlaylistId" (songSelected)="onSongSelected($event)">
+            </app-content>
+            <app-spotify-search (trackSelected)="onSpotifyTrackSelected($event)"></app-spotify-search>
+            <app-debug></app-debug>
         </div>
     </div>
-
-    <!-- Player cố định ở dưới cùng -->
-    <div class="player">
+    <div class="fixed-bottom w-100 ">
         <app-player [selectedSong]="selectedSong" [songs]="songsList"></app-player>
     </div>
+    
+
+</div>

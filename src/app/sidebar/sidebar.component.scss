@@ -125,3 +125,62 @@ h2 {
   font-size: 14px;
   color: #b3b3b3;
 }
+
+/* Login section styles */
+.login-section {
+  margin-bottom: 20px;
+  padding: 16px;
+  background-color: #1db954;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.spotify-login-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.spotify-login-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.spotify-login-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Loading section styles */
+.loading-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px;
+  color: #b3b3b3;
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #282828;
+  border-top: 2px solid #1db954;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

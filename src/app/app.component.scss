@@ -1,13 +1,4 @@
 /* src/app/app.component.css */
-.main-wrapper {
-  display: flex;
-  padding: 8px;
-  flex-direction: column;
-  height: 100vh; /* Chiều cao bằng toàn bộ màn hình */
-  background-color: #000; /* Nền đen giống Spotify */
-  color: white;
-  font-family: 'Helvetica Neue', Arial, sans-serif;
-}
 
 /* Header cố định ở trên cùng */
 .header {
@@ -17,30 +8,6 @@
   right: 0;
   
 }
-
-.container {
-  gap: 10px;
-  display: flex ;
-  margin-top: 60px; 
-  margin-bottom: 60px; /* Khoảng cách để tránh bị player che khuất */
-  height: calc(100vh - 140px); /* Chiều cao = màn hình trừ header và player */
-}
-
-.sidebar {
-  border-radius: 12px;
-  width: 25%; 
-  background-color: #000;
-  overflow-y: auto; 
-}
-
-.content {
-  border-radius: 12px;
-
-  width: 75%; 
-  background-color: #121212;
-  overflow-y: auto;
-}
-
 .player {
   position: fixed;
   

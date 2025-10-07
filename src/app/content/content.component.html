@@ -21,8 +21,14 @@
     </button>
   </div>
 
+  <!-- Loading indicator -->
+  <div *ngIf="isLoading" class="loading-section">
+    <div class="loading-spinner"></div>
+    <span>Loading tracks...</span>
+  </div>
+
   <!-- Danh sách bài hát -->
-  <div class="song-list">
+  <div class="song-list" *ngIf="!isLoading">
     <table>
       <thead>
         <tr>
@@ -35,7 +41,7 @@
       <tbody>
         <tr
           *ngFor="let song of songs; let i = index"
-          (click)="selectSong(song)"
+          (click)="playSpotifyTrack(song)"
           class="song-item"
         >
           <td>{{ i + 1 }}</td>
@@ -52,8 +58,8 @@
               </div>
             </div>
           </td>
-          <td>{{ song.title }}</td>
-          <td>{{ song.title }}</td>
+          <td>{{ song.albumName || song.title }}</td>
+          <td>{{ formatDuration(song.duration) }}</td>
         </tr>
       </tbody>
     </table>
